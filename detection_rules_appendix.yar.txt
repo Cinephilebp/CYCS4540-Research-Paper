@@ -51,7 +51,7 @@ rule LabHost_Postal_Service_Phishing {
     meta:
         description = "Detects LabHost phishing domains impersonating postal services"
         author = "Security Research Team"
-        date = "2024-10-24"
+        date = "2024-10-31"
         severity = "high"
     
     strings:
@@ -86,7 +86,7 @@ rule LabHost_Government_Impersonation {
     meta:
         description = "Detects LabHost domains impersonating government services"
         author = "Security Research Team"
-        date = "2024-10-24"
+        date = "2024-10-31"
         severity = "critical"
         tags = "government, tax, immigration"
     
@@ -120,7 +120,7 @@ rule LabHost_Tech_Brand_Impersonation {
     meta:
         description = "Detects LabHost phishing targeting major tech companies"
         author = "Security Research Team"
-        date = "2024-10-24"
+        date = "2024-10-31"
         severity = "high"
     
     strings:
@@ -150,7 +150,7 @@ rule LabHost_Telecom_Provider_Phishing {
     meta:
         description = "Detects LabHost phishing targeting telecommunications providers"
         author = "Security Research Team"
-        date = "2024-10-24"
+        date = "2024-10-31"
     
     strings:
         // Canadian providers
@@ -179,7 +179,7 @@ rule LabHost_Generic_Phishing_Structure {
     meta:
         description = "Detects generic phishing domain structures used by LabHost"
         author = "Security Research Team"
-        date = "2024-10-24"
+        date = "2024-10-31"
         confidence = "medium"
     
     strings:
