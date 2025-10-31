@@ -11,7 +11,7 @@ rule LabHost_Financial_Sector_Phishing {
     meta:
         description = "Detects LabHost phishing domains targeting financial institutions"
         author = "Security Research Team"
-        date = "2024-10-24"
+        date = "2024-10-31"
         reference = "FBI IC3 FLASH-20250429-001"
         severity = "high"
         confidence = "high"
