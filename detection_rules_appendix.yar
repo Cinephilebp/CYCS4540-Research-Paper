@@ -10,8 +10,8 @@ YARA Rules for Domain/URL Pattern Detection
 rule LabHost_Financial_Sector_Phishing {
     meta:
         description = "Detects LabHost phishing domains targeting financial institutions"
-        author = "Security Research Team"
-        date = "2024-10-31"
+        author = "Borsha Podder"
+        date = "2025-10-31"
         reference = "FBI IC3 FLASH-20250429-001"
         severity = "high"
         confidence = "high"
@@ -50,8 +50,8 @@ rule LabHost_Financial_Sector_Phishing {
 rule LabHost_Postal_Service_Phishing {
     meta:
         description = "Detects LabHost phishing domains impersonating postal services"
-        author = "Security Research Team"
-        date = "2024-10-31"
+        author = "Borsha Podder"
+        date = "2025-10-31"
         severity = "high"
     
     strings:
@@ -85,8 +85,8 @@ rule LabHost_Postal_Service_Phishing {
 rule LabHost_Government_Impersonation {
     meta:
         description = "Detects LabHost domains impersonating government services"
-        author = "Security Research Team"
-        date = "2024-10-31"
+        author = "Borsha Podder"
+        date = "2025-10-31"
         severity = "critical"
         tags = "government, tax, immigration"
     
@@ -119,8 +119,8 @@ rule LabHost_Government_Impersonation {
 rule LabHost_Tech_Brand_Impersonation {
     meta:
         description = "Detects LabHost phishing targeting major tech companies"
-        author = "Security Research Team"
-        date = "2024-10-31"
+        author = "Borsha Podder"
+        date = "2025-10-31"
         severity = "high"
     
     strings:
@@ -149,8 +149,8 @@ rule LabHost_Tech_Brand_Impersonation {
 rule LabHost_Telecom_Provider_Phishing {
     meta:
         description = "Detects LabHost phishing targeting telecommunications providers"
-        author = "Security Research Team"
-        date = "2024-10-31"
+        author = "Borsha Podder"
+        date = "2025-10-31"
     
     strings:
         // Canadian providers
@@ -178,8 +178,8 @@ rule LabHost_Telecom_Provider_Phishing {
 rule LabHost_Generic_Phishing_Structure {
     meta:
         description = "Detects generic phishing domain structures used by LabHost"
-        author = "Security Research Team"
-        date = "2024-10-31"
+        author = "Borsha Podder"
+        date = "2025-10-31"
         confidence = "medium"
     
     strings:
@@ -216,8 +216,8 @@ title: LabHost Financial Phishing DNS Query
 id: 8f3e4a12-9c5d-4b6e-a1f3-2e8c9d5b7a4f
 status: production
 description: Detects DNS queries to suspected LabHost financial phishing domains
-author: Security Research Team
-date: 2024-10-24
+author: Borsha Podder
+date: 2025-10-31
 references:
     - https://www.ic3.gov/CSA/2025/250429.pdf
 tags:
@@ -257,8 +257,8 @@ title: LabHost Delivery Service Phishing Pattern
 id: 7d2f5e8a-4b9c-11ee-9a3d-1e8f4c9b2d7a
 status: production
 description: Detects patterns consistent with LabHost postal service phishing
-author: Security Research Team
-date: 2024-10-24
+author: Borsha Podder
+date: 2025-10-31
 logsource:
     product: proxy
     category: webproxy
@@ -299,8 +299,8 @@ title: LabHost Government Impersonation Detection
 id: 3f8a9c2e-7d5b-4e1c-9f2a-8b4d6c3e5a7f
 status: production
 description: Detects access attempts to government impersonation domains
-author: Security Research Team
-date: 2024-10-24
+author: Borsha Podder
+date: 2025-10-31
 logsource:
     product: firewall
     service: network
@@ -333,8 +333,8 @@ title: LabHost Multi-Brand Phishing Campaign
 id: 9e7f3a5b-2c8d-4e6f-a3b5-1d9f8c7e2a5b
 status: experimental
 description: Detects multiple brand impersonation attempts indicating LabHost campaign
-author: Security Research Team
-date: 2024-10-24
+author: Borsha Podder
+date: 2025-10-31
 logsource:
     product: endpoint
     service: dns
@@ -357,8 +357,8 @@ title: LabHost Credential Harvesting Endpoint Access
 id: 5a8c9f3e-4d7b-11ee-8f3a-2e9c7d5b8a4f
 status: production
 description: Detects POST requests to suspected LabHost credential harvesting endpoints
-author: Security Research Team
-date: 2024-10-24
+author: Borsha Podder
+date: 2025-10-31
 logsource:
     product: webserver
     category: access
