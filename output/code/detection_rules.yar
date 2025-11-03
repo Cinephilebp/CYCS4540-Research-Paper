@@ -1,14 +1,14 @@
 /*
 LabHost Phishing Domain Detection Rules
 Generated from analysis of 50 sampled domains
-Date: 2025-10-31
+Date: 2025-11-03
 */
 
 rule LabHost_Financial_Phishing {
     meta:
         description = "Detects LabHost phishing domains targeting financial institutions"
         author = "Security Research Team"
-        date = "2025-10-31"
+        date = "2025-11-03"
         reference = "FBI IC3 LabHost Dataset Analysis"
     
     strings:
@@ -26,7 +26,7 @@ rule LabHost_Delivery_Phishing {
     meta:
         description = "Detects LabHost phishing domains impersonating delivery services"
         author = "Security Research Team"
-        date = "2025-10-31"
+        date = "2025-11-03"
     
     strings:
         $delivery = /(canada-?post|an-?post|usps|fedex|dhl|ups)/i
@@ -42,7 +42,7 @@ rule LabHost_Government_Impersonation {
     meta:
         description = "Detects LabHost domains impersonating government services"
         author = "Security Research Team"
-        date = "2025-10-31"
+        date = "2025-11-03"
     
     strings:
         $gov = /gov[-.]/i
@@ -58,7 +58,7 @@ rule LabHost_Tech_Brand_Phishing {
     meta:
         description = "Detects LabHost phishing targeting tech companies"
         author = "Security Research Team"
-        date = "2025-10-31"
+        date = "2025-11-03"
     
     strings:
         $brand = /(microsoft|apple|google|amazon|netflix|adobe)/i
@@ -74,7 +74,7 @@ rule LabHost_Generic_Suspicious_Structure {
     meta:
         description = "Detects generic suspicious domain structures used by LabHost"
         author = "Security Research Team"
-        date = "2025-10-31"
+        date = "2025-11-03"
     
     strings:
         $prefix = /^(secure|verify|update|login|account|payment)/i
@@ -92,11 +92,11 @@ rule LabHost_Generic_Suspicious_Structure {
 # ============================================================
 
 title: LabHost Phishing Domain Detection
-id: 7a83dd27197f23d1bb44ba4c02c9e808
+id: 46a8d883452cbe5ed08a8acdb7e08aa7
 status: experimental
 description: Detects DNS queries to suspected LabHost phishing domains
 author: Security Research Team
-date: 2025/10/31
+date: 2025/11/03
 references:
     - https://www.ic3.gov/CSA/2025/250429.pdf
     - FBI IC3 LabHost Domain Analysis
@@ -163,11 +163,11 @@ level: high
 ---
 
 title: LabHost Phishing HTTP Request Pattern
-id: 9204efa0810c207751494b9166f5900f
+id: ede41bd92ca15cd546a2bffe7bbed356
 status: experimental
 description: Detects HTTP requests to LabHost phishing infrastructure
 author: Security Research Team
-date: 2025/10/31
+date: 2025/11/03
 logsource:
     product: proxy
     category: webproxy

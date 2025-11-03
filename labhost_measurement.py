@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
 """
-LabHost Complete Domain Analysis Script
-----------------------------------------
-Generates all required outputs for the research paper including:
-- TLD distribution charts
-- Brand targeting analysis
-- Domain structure analysis
-- Statistical clustering
-- YARA/Sigma rules
-- Comprehensive dashboard
+LabHost Complete Domain Analysis Script 
+--------------------------------------------------------
+Fixed geographic targeting analysis to ensure consistency
+between dashboard and table outputs.
 """
 
 import argparse
@@ -73,13 +68,14 @@ SUSPICIOUS_TOKENS = [
     'billing', 'payment', 'refund', 'claim', 'prize', 'winner', 'expire'
 ]
 
-# Geographic indicators
+# FIXED: More specific geographic indicators to avoid false positives
 GEO_INDICATORS = {
-    'Canada': ['ca', 'canada', 'can', 'canadapost', 'interac', 'rbc', 'bmo', 'telus', 'rogers', 'bell'],
-    'Ireland': ['ie', 'ireland', 'anpost', 'eir'],
-    'Australia': ['au', 'australia', 'aus', 'auspost', 'bendigo', 'commbank'],
-    'UK': ['uk', 'gb', 'britain', 'royalmail', 'hmrc', 'barclays', 'hsbc'],
-    'USA': ['us', 'usa', 'america', 'usps', 'irs', 'chase', 'wellsfargo']
+    'Canada': ['canada', 'canadapost', 'interac', 'rbc', 'bmo', 'telus', 'rogers', 'bell', 
+               'desjardins', 'cibc', 'scotia', 'fido', 'koodo', 'purolator', 'postecan', 'postcan'],
+    'Ireland': ['ireland', 'anpost', 'eir'],
+    'Australia': ['australia', 'auspost', 'bendigo', 'commbank', 'mypo'],
+    'UK': ['uk', 'britain', 'royalmail', 'hmrc', 'barclays', 'hsbc'],
+    'USA': ['usa', 'america', 'usps', 'irs', 'chase', 'wellsfargo', 'verizon', 'att', 'tmobile']
 }
 
 def safe_mkdir(path):
@@ -170,16 +166,39 @@ def analyze_brand_targeting(domains):
     return brand_counts, detailed_brands
 
 def analyze_geographic_targeting(domains):
-    """Analyze geographic targeting patterns"""
+    """FIXED: Analyze geographic targeting patterns with consistent logic"""
     geo_counts = {country: 0 for country in GEO_INDICATORS.keys()}
+    geo_counts['Global'] = 0  # Add Global category
     
     for domain in domains:
         domain_lower = domain.lower()
+        found_country = False
+        
+        # Check each country's indicators
         for country, indicators in GEO_INDICATORS.items():
-            if any(ind in domain_lower for ind in indicators):
+            # Check if any indicator for this country is in the domain
+            if any(indicator in domain_lower for indicator in indicators):
                 geo_counts[country] += 1
+                found_country = True
+                break  # Only count each domain once for the first matching country
+        
+        # If no country-specific indicator found, count as Global
+        if not found_country:
+            geo_counts['Global'] += 1
     
     return geo_counts
+
+def determine_geographic_target(domain):
+    """FIXED: Determine geographic target for a single domain (for table generation)"""
+    domain_lower = domain.lower()
+    
+    # Check each country's indicators in the same order as analyze_geographic_targeting
+    for country, indicators in GEO_INDICATORS.items():
+        if any(indicator in domain_lower for indicator in indicators):
+            return country
+    
+    # If no country-specific indicator found, return Global
+    return 'Global'
 
 def extract_domain_features(domain):
     """Extract statistical features from a domain"""
@@ -219,14 +238,23 @@ def generate_dashboard(sample_data, output_path):
     ax1.set_ylabel('Frequency')
     ax1.tick_params(axis='x', rotation=45)
     
-    # 2. Geographic Targeting
+    # 2. Geographic Targeting - FIXED to use the same function
     ax2 = fig.add_subplot(gs[0, 2:])
     domains_list = [d['domain'] for d in sample_data]
     geo_counts = analyze_geographic_targeting(domains_list)
-    colors = plt.cm.Set3(np.linspace(0, 1, len(geo_counts)))
-    wedges, texts, autotexts = ax2.pie(geo_counts.values(), labels=geo_counts.keys(), 
-                                        autopct='%1.1f%%', colors=colors, startangle=90)
-    ax2.set_title('Geographic Targeting Distribution', fontweight='bold')
+    
+    # Filter out zero counts for pie chart
+    geo_counts_filtered = {k: v for k, v in geo_counts.items() if v > 0}
+    
+    if geo_counts_filtered:
+        colors = plt.cm.Set3(np.linspace(0, 1, len(geo_counts_filtered)))
+        wedges, texts, autotexts = ax2.pie(geo_counts_filtered.values(), 
+                                            labels=geo_counts_filtered.keys(), 
+                                            autopct='%1.1f%%', colors=colors, startangle=90)
+        ax2.set_title('Geographic Targeting Distribution', fontweight='bold')
+    else:
+        ax2.text(0.5, 0.5, 'No geographic data available', ha='center', va='center')
+        ax2.set_title('Geographic Targeting Distribution', fontweight='bold')
     
     # 3. Brand Category Targeting
     ax3 = fig.add_subplot(gs[1, :2])
@@ -265,8 +293,8 @@ def generate_dashboard(sample_data, output_path):
     # 6. Status Distribution
     ax6 = fig.add_subplot(gs[2, 2:])
     status_counts = Counter([d.get('status_bucket', 'unknown') for d in sample_data])
-    colors = {'active': 'green', 'inactive_or_held': 'red', 'unknown': 'gray'}
-    bar_colors = [colors.get(s, 'blue') for s in status_counts.keys()]
+    colors_map = {'active': 'green', 'inactive_or_held': 'red', 'unknown': 'gray'}
+    bar_colors = [colors_map.get(s, 'blue') for s in status_counts.keys()]
     ax6.bar(status_counts.keys(), status_counts.values(), color=bar_colors, alpha=0.7)
     ax6.set_title('Domain Status Distribution', fontweight='bold')
     ax6.set_xlabel('Status')
@@ -871,7 +899,7 @@ level: medium
     print(f"[+] YARA and Sigma rules saved to: {output_path}")
 
 def generate_domain_table(sample_data, output_path):
-    """Generate detailed domain analysis table"""
+    """Generate detailed domain analysis table - FIXED to use consistent geographic targeting"""
     # Prepare detailed analysis for each domain
     detailed_data = []
     
@@ -886,12 +914,8 @@ def generate_domain_table(sample_data, output_path):
                 targeting = category.capitalize()
                 break
         
-        # Determine geographic targeting
-        geo_target = 'Global'
-        for country, indicators in GEO_INDICATORS.items():
-            if any(ind in domain.lower() for ind in indicators):
-                geo_target = country
-                break
+        # FIXED: Use the same function for consistency
+        geo_target = determine_geographic_target(domain)
         
         # Create detailed record
         record = {
@@ -945,8 +969,10 @@ def generate_domain_table(sample_data, output_path):
         f.write("| Domain | TLD | Category | Geographic Target | Suspicious Score | Notes |\n")
         f.write("|--------|-----|----------|-------------------|-----------------|-------|\n")
         for _, row in df.head(10).iterrows():
-            f.write(f"| {row['Domain'][:30]}... | {row['TLD']} | {row['Targeting Category']} | "
-                   f"{row['Geographic Target']} | {row['Suspicious Score']} | {row['Notes'][:30]}... |\n")
+            domain_display = row['Domain'] if len(row['Domain']) <= 30 else row['Domain'][:27] + "..."
+            notes_display = row['Notes'] if len(row['Notes']) <= 30 else row['Notes'][:27] + "..."
+            f.write(f"| {domain_display} | {row['TLD']} | {row['Targeting Category']} | "
+                   f"{row['Geographic Target']} | {row['Suspicious Score']} | {notes_display} |\n")
         
         f.write("\n## Targeting Distribution\n\n")
         target_dist = df['Targeting Category'].value_counts()
@@ -964,7 +990,7 @@ def generate_domain_table(sample_data, output_path):
 def main():
     """Main execution function"""
     print("\n" + "="*60)
-    print("LabHost Complete Domain Analysis")
+    print("LabHost Complete Domain Analysis - FIXED VERSION")
     print("="*60 + "\n")
     
     # Create output directories
@@ -1016,7 +1042,7 @@ def main():
     print("\n[2/10] Saving analysis code...")
     with open(os.path.join(CODE_DIR, "analysis_script.py"), 'w') as f:
         f.write("# This is the complete analysis script\n")
-        f.write("# See labhost_complete_analysis.py for full implementation\n")
+        f.write("# See labhost_analysis_fixed.py for full implementation\n")
         f.write(f"# Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
     
     print("\n[3/10] Generating dashboard...")

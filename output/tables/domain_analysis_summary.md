@@ -1,6 +1,6 @@
 # LabHost Domain Analysis - Detailed Results
 
-**Analysis Date:** 2025-10-31 10:52:58
+**Analysis Date:** 2025-11-03 00:21:05
 **Total Domains Analyzed:** 51
 
 ## Summary Statistics
@@ -14,16 +14,16 @@
 
 | Domain | TLD | Category | Geographic Target | Suspicious Score | Notes |
 |--------|-----|----------|-------------------|-----------------|-------|
-| post-canada.ca... | .ca | Postal | Canada | 0 | Standard phishing pattern... |
-| post-customsinformation.com... | .com | Government | USA | 0 | Standard phishing pattern... |
-| anpost-delivery.info... | .info | Postal | Ireland | 0 | Standard phishing pattern... |
-| anpost-delivery-postage.com... | .com | Postal | Ireland | 0 | Standard phishing pattern... |
-| postecan-alert.com... | .com | Generic | Canada | 1 | Standard phishing pattern... |
-| fees-anpostoffice-notice.com... | .com | Postal | Ireland | 0 | Standard phishing pattern... |
-| expresspostcan.com... | .com | Postal | Canada | 0 | Standard phishing pattern... |
-| et-interacdeposit1.com... | .com | Financial | Canada | 0 | Standard phishing pattern... |
-| claim-interac.com... | .com | Financial | Canada | 1 | Standard phishing pattern... |
-| lnterac-transfer.pw... | .pw | Generic | Global | 0 | Standard phishing pattern... |
+| post-canada.ca | .ca | Postal | Canada | 0 | Standard phishing pattern |
+| post-customsinformation.com | .com | Government | Global | 0 | Standard phishing pattern |
+| anpost-delivery.info | .info | Postal | Ireland | 0 | Standard phishing pattern |
+| anpost-delivery-postage.com | .com | Postal | Ireland | 0 | Standard phishing pattern |
+| postecan-alert.com | .com | Generic | Canada | 1 | Standard phishing pattern |
+| fees-anpostoffice-notice.com | .com | Postal | Ireland | 0 | Standard phishing pattern |
+| expresspostcan.com | .com | Postal | Canada | 0 | Standard phishing pattern |
+| et-interacdeposit1.com | .com | Financial | Canada | 0 | Standard phishing pattern |
+| claim-interac.com | .com | Financial | Canada | 1 | Standard phishing pattern |
+| lnterac-transfer.pw | .pw | Generic | Global | 0 | Standard phishing pattern |
 
 ## Targeting Distribution
 
@@ -37,9 +37,9 @@
 
 ## Geographic Distribution
 
-- **Global:** 23 domains (45.1%)
+- **Global:** 24 domains (47.1%)
 - **Canada:** 15 domains (29.4%)
 - **USA:** 6 domains (11.8%)
-- **Ireland:** 4 domains (7.8%)
+- **Ireland:** 3 domains (5.9%)
 - **Australia:** 2 domains (3.9%)
 - **UK:** 1 domains (2.0%)
