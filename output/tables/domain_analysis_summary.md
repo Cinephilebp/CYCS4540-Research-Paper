@@ -1,6 +1,6 @@
 # LabHost Domain Analysis - Detailed Results
 
-**Analysis Date:** 2025-11-03 10:34:42
+**Analysis Date:** 2025-11-03 15:19:44
 **Total Domains Analyzed:** 51
 
 ## Summary Statistics
@@ -8,7 +8,7 @@
 - **Average Domain Length:** 23.7 characters
 - **Domains with Hyphens:** 47 (92.2%)
 - **Domains with Numbers:** 7 (13.7%)
-- **Average Suspicious Score:** 0.71
+- **Average Suspicious Score:** 0.63
 
 ## Top 10 Sample Domains
 

@@ -70,7 +70,7 @@ BRAND_KEYWORDS = {
 # Suspicious tokens commonly used in phishing
 SUSPICIOUS_TOKENS = [
     'secure', 'login', 'verify', 'update', 'confirm', 'account', 'suspended', 
-    'alert', 'notification', 'urgent', 'action', 'required', 'locked', 'verify',
+    'alert', 'notification', 'urgent', 'action', 'required', 'locked',
     'billing', 'payment', 'refund', 'claim', 'prize', 'winner', 'expire'
 ]
 
@@ -445,10 +445,10 @@ def generate_brand_targeting_chart(sample_data, output_path):
     print(f"[+] Brand targeting chart saved to: {output_path}")
 
 def generate_word_cloud_visual(sample_data, output_path):
-    """Generate word cloud visualization of common tokens"""
+    """Generate word cloud visualization of common tokens - FIXED for consistency"""
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
     
-    # Extract all tokens
+    # Extract all tokens by splitting domains
     all_tokens = []
     for d in sample_data:
         domain = d['domain'].lower()
@@ -456,7 +456,8 @@ def generate_word_cloud_visual(sample_data, output_path):
         all_tokens.extend(tokens)
     
     # Filter out TLDs and very short tokens
-    tlds = ['com', 'org', 'net', 'info', 'online', 'ca', 'uk', 'xyz', 'live', 'app']
+    tlds = ['com', 'org', 'net', 'info', 'online', 'ca', 'uk', 'xyz', 'live', 'app', 
+            'sbs', 'pw', 'me', 'co', 'help', 'autos', 'cfd', 'digital']
     filtered_tokens = [t for t in all_tokens if len(t) > 2 and t not in tlds]
     
     # Count tokens
@@ -469,18 +470,21 @@ def generate_word_cloud_visual(sample_data, output_path):
     ax1.set_title('Top 20 Most Common Domain Tokens', fontsize=14, fontweight='bold')
     ax1.set_xlabel('Frequency')
     
-    # Suspicious tokens frequency
+    # FIXED: Suspicious tokens frequency - count tokens the same way as left chart
+    # Count how many times each suspicious token appears as a split token
     suspicious_found = {}
     for token in SUSPICIOUS_TOKENS:
-        count = sum(1 for d in sample_data if token in d['domain'].lower())
+        # Count occurrences of this token in the split tokens list
+        count = filtered_tokens.count(token)
         if count > 0:
             suspicious_found[token] = count
     
     if suspicious_found:
+        # Sort by frequency and take top 10
         top_suspicious = dict(sorted(suspicious_found.items(), key=lambda x: x[1], reverse=True)[:10])
         bars = ax2.bar(top_suspicious.keys(), top_suspicious.values(), 
                       color='red', alpha=0.6, edgecolor='darkred')
-        ax2.set_title('Suspicious Token Frequency', fontsize=14, fontweight='bold')
+        ax2.set_title('Suspicious Token Frequency (as split tokens)', fontsize=14, fontweight='bold')
         ax2.set_xlabel('Token')
         ax2.set_ylabel('Frequency')
         ax2.tick_params(axis='x', rotation=45)
