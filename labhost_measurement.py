@@ -4,7 +4,7 @@ LabHost Complete Domain Analysis Script
 Author: Borsha Podder
 Date: Nov 2025
 
-This script analyzes 50 randomly sampled domains from the FBI's LabHost
+This script analyzes 51 randomly sampled domains from the FBI's LabHost
 indicator list ~42,000 domains to identify patterns, targeting strategies,
 and infrastructure characteristics.
 --------------------------------------------------------
@@ -733,14 +733,14 @@ def generate_yara_rules(sample_data, output_path):
     
     yara_rules = """/*
 LabHost Phishing Domain Detection Rules
-Generated from analysis of 50 sampled domains
+Generated from analysis of 51 sampled domains
 Date: """ + datetime.now().strftime('%Y-%m-%d') + """
 */
 
 rule LabHost_Financial_Phishing {
     meta:
         description = "Detects LabHost phishing domains targeting financial institutions"
-        author = "Security Research Team"
+        author = "Borsha Podder"
         date = \"""" + datetime.now().strftime('%Y-%m-%d') + """\"
         reference = "FBI IC3 LabHost Dataset Analysis"
     
@@ -758,7 +758,7 @@ rule LabHost_Financial_Phishing {
 rule LabHost_Delivery_Phishing {
     meta:
         description = "Detects LabHost phishing domains impersonating delivery services"
-        author = "Security Research Team"
+        author = "Borsha Podder"
         date = \"""" + datetime.now().strftime('%Y-%m-%d') + """\"
     
     strings:
@@ -774,7 +774,7 @@ rule LabHost_Delivery_Phishing {
 rule LabHost_Government_Impersonation {
     meta:
         description = "Detects LabHost domains impersonating government services"
-        author = "Security Research Team"
+        author = "Borsha Podder"
         date = \"""" + datetime.now().strftime('%Y-%m-%d') + """\"
     
     strings:
@@ -790,7 +790,7 @@ rule LabHost_Government_Impersonation {
 rule LabHost_Tech_Brand_Phishing {
     meta:
         description = "Detects LabHost phishing targeting tech companies"
-        author = "Security Research Team"
+        author = "Borsha Podder"
         date = \"""" + datetime.now().strftime('%Y-%m-%d') + """\"
     
     strings:
@@ -806,7 +806,7 @@ rule LabHost_Tech_Brand_Phishing {
 rule LabHost_Generic_Suspicious_Structure {
     meta:
         description = "Detects generic suspicious domain structures used by LabHost"
-        author = "Security Research Team"
+        author = "Borsha Podder"
         date = \"""" + datetime.now().strftime('%Y-%m-%d') + """\"
     
     strings:
@@ -825,7 +825,7 @@ rule LabHost_Generic_Suspicious_Structure {
 id: """ + str(os.urandom(16).hex()) + """
 status: experimental
 description: Detects DNS queries to suspected LabHost phishing domains
-author: Security Research Team
+author: Borsha Podder
 date: """ + datetime.now().strftime('%Y/%m/%d') + """
 references:
     - https://www.ic3.gov/CSA/2025/250429.pdf
@@ -896,7 +896,7 @@ title: LabHost Phishing HTTP Request Pattern
 id: """ + str(os.urandom(16).hex()) + """
 status: experimental
 description: Detects HTTP requests to LabHost phishing infrastructure
-author: Security Research Team
+author: Borsha Podder
 date: """ + datetime.now().strftime('%Y/%m/%d') + """
 logsource:
     product: proxy
