@@ -1,6 +1,6 @@
 /*
 LabHost Phishing Domain Detection Rules
-Generated from analysis of 50 sampled domains
+Generated from analysis of 51 sampled domains
 Date: 2025-11-03
 */
 
