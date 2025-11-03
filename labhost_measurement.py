@@ -360,11 +360,16 @@ def generate_tld_distribution_chart(sample_data, output_path):
     print(f"[+] TLD distribution chart saved to: {output_path}")
 
 def generate_brand_targeting_chart(sample_data, output_path):
-    """Generate brand targeting distribution chart"""
+    """Generate brand targeting distribution chart - FIXED to match table percentages"""
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
     
     domains_list = [d['domain'] for d in sample_data]
+    total_domains = len(domains_list)  # Total number of domains analyzed
     brand_counts, detailed_brands = analyze_brand_targeting(domains_list)
+    
+    # Count domains without brand targeting (Generic)
+    total_targeted = sum(brand_counts.values())
+    generic_count = total_domains - total_targeted
     
     # Bar chart
     categories = list(brand_counts.keys())
@@ -382,22 +387,53 @@ def generate_brand_targeting_chart(sample_data, output_path):
         ax1.text(bar.get_x() + bar.get_width()/2., height + 0.5, str(count),
                 ha='center', va='bottom', fontweight='bold')
     
-    # Donut chart
-    filtered_counts = {k: v for k, v in brand_counts.items() if v > 0}
-    if filtered_counts:
-        wedges, texts, autotexts = ax2.pie(filtered_counts.values(), labels=filtered_counts.keys(), 
-                                            autopct='%1.1f%%', colors=colors[:len(filtered_counts)],
+    # FIXED: Donut chart - include Generic category and show percentages based on TOTAL domains
+    # Add Generic category to the data
+    all_categories = {}
+    for cat, count in brand_counts.items():
+        if count > 0:
+            all_categories[cat] = count
+    if generic_count > 0:
+        all_categories['Generic'] = generic_count
+    
+    if all_categories:
+        # Create labels with counts and percentages of total domains
+        labels_with_counts = []
+        values = []
+        chart_colors = []
+        
+        for cat, count in all_categories.items():
+            pct = (count / total_domains) * 100
+            labels_with_counts.append(f'{cat}\n({count} domains)')
+            values.append(count)
+            if cat == 'Generic':
+                chart_colors.append('#808080')  # Gray for Generic
+            else:
+                idx = categories.index(cat) if cat in categories else 0
+                chart_colors.append(colors[idx])
+        
+        # Create the donut chart with percentages based on total domains
+        wedges, texts, autotexts = ax2.pie(values, 
+                                            labels=labels_with_counts,
+                                            autopct=lambda pct: f'{(pct/100*sum(values)/total_domains*100):.1f}%',
+                                            colors=chart_colors,
                                             startangle=90, pctdistance=0.85)
         
         # Create donut
         centre_circle = plt.Circle((0, 0), 0.70, fc='white')
         ax2.add_artist(centre_circle)
-        ax2.set_title('Brand Targeting Distribution', fontsize=14, fontweight='bold')
+        ax2.set_title(f'Brand Targeting Distribution\n(Total: {total_domains} domains)', 
+                     fontsize=14, fontweight='bold')
         
         # Make text more readable
         for autotext in autotexts:
             autotext.set_color('black')
             autotext.set_weight('bold')
+            autotext.set_fontsize(9)
+        
+        # Adjust text label sizes
+        for text in texts:
+            text.set_fontsize(8)
     else:
         ax2.text(0.5, 0.5, 'No brand targeting detected', ha='center', va='center', fontsize=12)
         ax2.set_title('Brand Targeting Distribution', fontsize=14, fontweight='bold')

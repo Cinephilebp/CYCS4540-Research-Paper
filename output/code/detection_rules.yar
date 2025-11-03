@@ -7,7 +7,7 @@ Date: 2025-11-03
 rule LabHost_Financial_Phishing {
     meta:
         description = "Detects LabHost phishing domains targeting financial institutions"
-        author = "Borsha Podder"
+        author = "Security Research Team"
         date = "2025-11-03"
         reference = "FBI IC3 LabHost Dataset Analysis"
     
@@ -25,7 +25,7 @@ rule LabHost_Financial_Phishing {
 rule LabHost_Delivery_Phishing {
     meta:
         description = "Detects LabHost phishing domains impersonating delivery services"
-        author = "Borsha Podder"
+        author = "Security Research Team"
         date = "2025-11-03"
     
     strings:
@@ -92,7 +92,7 @@ rule LabHost_Generic_Suspicious_Structure {
 # ============================================================
 
 title: LabHost Phishing Domain Detection
-id: 46a8d883452cbe5ed08a8acdb7e08aa7
+id: bccad31d7cc5a59475f6d7de6efb138f
 status: experimental
 description: Detects DNS queries to suspected LabHost phishing domains
 author: Borsha Podder
@@ -163,7 +163,7 @@ level: high
 ---
 
 title: LabHost Phishing HTTP Request Pattern
-id: ede41bd92ca15cd546a2bffe7bbed356
+id: 3b388ce5e0001407286057e041ba07f9
 status: experimental
 description: Detects HTTP requests to LabHost phishing infrastructure
 author: Borsha Podder
