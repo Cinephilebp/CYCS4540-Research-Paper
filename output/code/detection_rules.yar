@@ -7,7 +7,7 @@ Date: 2025-11-03
 rule LabHost_Financial_Phishing {
     meta:
         description = "Detects LabHost phishing domains targeting financial institutions"
-        author = "Security Research Team"
+        author = "Borsha Podder"
         date = "2025-11-03"
         reference = "FBI IC3 LabHost Dataset Analysis"
     
@@ -25,7 +25,7 @@ rule LabHost_Financial_Phishing {
 rule LabHost_Delivery_Phishing {
     meta:
         description = "Detects LabHost phishing domains impersonating delivery services"
-        author = "Security Research Team"
+        author = "Borsha Podder"
         date = "2025-11-03"
     
     strings:
@@ -41,7 +41,7 @@ rule LabHost_Delivery_Phishing {
 rule LabHost_Government_Impersonation {
     meta:
         description = "Detects LabHost domains impersonating government services"
-        author = "Security Research Team"
+        author = "Borsha Podder"
         date = "2025-11-03"
     
     strings:
@@ -57,7 +57,7 @@ rule LabHost_Government_Impersonation {
 rule LabHost_Tech_Brand_Phishing {
     meta:
         description = "Detects LabHost phishing targeting tech companies"
-        author = "Security Research Team"
+        author = "Borsha Podder"
         date = "2025-11-03"
     
     strings:
@@ -73,7 +73,7 @@ rule LabHost_Tech_Brand_Phishing {
 rule LabHost_Generic_Suspicious_Structure {
     meta:
         description = "Detects generic suspicious domain structures used by LabHost"
-        author = "Security Research Team"
+        author = "Borsha Podder"
         date = "2025-11-03"
     
     strings:
@@ -95,7 +95,7 @@ title: LabHost Phishing Domain Detection
 id: 46a8d883452cbe5ed08a8acdb7e08aa7
 status: experimental
 description: Detects DNS queries to suspected LabHost phishing domains
-author: Security Research Team
+author: Borsha Podder
 date: 2025/11/03
 references:
     - https://www.ic3.gov/CSA/2025/250429.pdf
@@ -166,7 +166,7 @@ title: LabHost Phishing HTTP Request Pattern
 id: ede41bd92ca15cd546a2bffe7bbed356
 status: experimental
 description: Detects HTTP requests to LabHost phishing infrastructure
-author: Security Research Team
+author: Borsha Podder
 date: 2025/11/03
 logsource:
     product: proxy
