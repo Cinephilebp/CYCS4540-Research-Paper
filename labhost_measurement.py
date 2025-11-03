@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 """
 LabHost Complete Domain Analysis Script 
+Author: Borsha Podder
+Date: Nov 2025
+
+This script analyzes 50 randomly sampled domains from the FBI's LabHost
+indicator list ~42,000 domains to identify patterns, targeting strategies,
+and infrastructure characteristics.
 --------------------------------------------------------
 Fixed geographic targeting analysis to ensure consistency
 between dashboard and table outputs.
